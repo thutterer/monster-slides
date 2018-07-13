@@ -65,8 +65,8 @@
         text-decoration: none;
       }
     </style>
-
   </head>
+
   <body>
     <div id="app">
       <div class="prev" @click="prevSlide">&#8678;</div>
@@ -84,14 +84,13 @@
 
       <div id="progress" v-bind:style="{width: active / slides.length * 100 + '%'}"></div>
     </div>
-https://quasar-framework.org/
     <script>
       var app = new Vue({
         el: '#app',
         data: {
           slides: [
-            {title: 'Hi!'},
-            {title: '@thutterer', sub: 'Thomas Hutterer'},
+            {title: 'Hi!', url: 'https://gitlab.com/thutterer/monster-slides.git'},
+            {title: '@thutterer', sub: 'Thomas Hutterer', url: 'https://geekos.prv.suse.net/#/geeko/thutterer'},
             {title: 'SCC', sub: 'SUSE Customer Center', url: 'https://scc.suse.com'},
             {title: 'RMT', sub: 'Repository Mirroring Tool', url: 'https://github.com/suse/rmt#rmt-and-smt'},
             {title: 'Hack Week', url: 'https://hackweek.suse.com/'},
@@ -101,6 +100,8 @@ https://quasar-framework.org/
             {title: 'VueJS', sub: 'Day 2', url: 'https://vuejs.org'},
             {title: 'Quasar', sub: 'Day 2.5', url: 'https://quasar-framework.org/'},
             {title: 'JWT', sub: 'Day 3', url: 'https://jwt.io/'},
+            {title: 'Fun with components', sub: 'Day 4', url: 'https://quasar-framework.org/components/search.html'},
+            {title: 'Demo', sub: 'Day 5', url: 'http://10.160.65.68:8080/'},
             {title: 'Thanks'},
           ],
           active: 0
