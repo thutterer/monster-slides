@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Monster Slides</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style media="screen">
+      body {
+        margin: 0;
+        font-family: monospace;
+
+        background: #1E1E24;
+        color: white;
+      }
+
+      #app {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      #slide {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .title {
+        font-size: 128px;
+      }
+
+      .sub, .url, .prev, .next {
+        font-size: 64px;
+        color: #67E0A3;
+        padding: 8px;
+        opacity: 0.75;
+      }
+
+      *:hover {
+        opacity: 1;
+        cursor: pointer;
+      }
+
+      #progress {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+
+        background: #67E0A3;
+
+        height: 8px;
+        transition: width 1s;
+        transition-timing-function: ease-in-out;
+      }
+
+      .url {
+        position: fixed;
+        right: 0;
+        top: 0;
+        text-decoration: none;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div id="app">
+      <div class="prev" @click="prevSlide">&#8678;</div>
+
+      <div id="slide" @click="nextSlide">
+        <div class="content">
+          <div class="sub">{{slides[active].sub}}</div>
+          <div class="title">{{slides[active].title}}</div>
+        </div>
+      </div>
+
+      <div class="next" @click="nextSlide">&#8680;</div>
+
+      <a v-if="slides[active].url" class="url" v-bind:href="slides[active].url" target="_blank">&#128279;</a>
+
+      <div id="progress" v-bind:style="{width: active / slides.length * 100 + '%'}"></div>
+    </div>
+https://quasar-framework.org/
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          slides: [
+            {title: 'Hi!'},
+            {title: '@thutterer', sub: 'Thomas Hutterer'},
+            {title: 'SCC', sub: 'SUSE Customer Center', url: 'https://scc.suse.com'},
+            {title: 'RMT', sub: 'Repository Mirroring Tool', url: 'https://github.com/suse/rmt#rmt-and-smt'},
+            {title: 'Hack Week', url: 'https://hackweek.suse.com/'},
+            {title: 'ReactJS', sub: 'Build a RMT web interface with', url: 'https://reactjs.org/'},
+            {title: 'Material-UI', sub: 'Build a RMT web interface with', url: 'https://material-ui.com/'},
+            {title: 'Remito in ReactJS', sub: 'Day 1', url: 'http://paste.opensuse.org/view/raw/39423640'},
+            {title: 'VueJS', sub: 'Day 2', url: 'https://vuejs.org'},
+            {title: 'Quasar', sub: 'Day 2.5', url: 'https://quasar-framework.org/'},
+            {title: 'JWT', sub: 'Day 3', url: 'https://jwt.io/'},
+            {title: 'Thanks'},
+          ],
+          active: 0
+        },
+        methods: {
+          prevSlide: function () {
+            if(this.active == 0) this.active = this.slides.length - 1;
+            else this.active -= 1;
+          },
+          nextSlide: function () {
+            if(this.active < this.slides.length - 1) this.active += 1;
+            else this.active = 0;
+          },
+          handleGlobalKeyUp: function (e) {
+            if(e.keyCode == 37) this.prevSlide();
+            else if(e.keyCode == 39) this.nextSlide();
+          }
+        }
+
+      })
+
+      window.addEventListener('keyup', function(e) {
+        app.handleGlobalKeyUp(e)
+      });
+    </script>
+  </body>
+</html>
